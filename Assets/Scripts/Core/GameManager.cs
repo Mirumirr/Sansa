@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour
     public List<RobotInstance> playerTeam = new List<RobotInstance>();
     public MissionConfig currentMission;
 
+    public MissionConfig GetCurrentMission()
+    {
+        return currentMission;
+    }
+
     void Awake()
     {
         // Синглтон
