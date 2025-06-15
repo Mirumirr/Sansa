@@ -51,4 +51,7 @@ MonoBehaviour:
   - Name: PlayerBot_02
     CurrentHP: 50
     Prefab: {fileID: 9066158241516590064, guid: 32f33a4e5e506044c9694571233991cd, type: 3}
+  - Name: PlayerBot_03
+    CurrentHP: 50
+    Prefab: {fileID: 9066158241516590064, guid: 32f33a4e5e506044c9694571233991cd, type: 3}
   currentMission: {fileID: 11400000, guid: 9b832d49a10216849a6d11aace349403, type: 2}

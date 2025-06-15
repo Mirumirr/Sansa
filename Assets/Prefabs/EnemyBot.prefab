@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6898541377696862147}
+  - component: {fileID: -4751961467257503998}
   m_Layer: 3
   m_Name: EnemyBot
   m_TagString: Untagged
@@ -116,3 +117,22 @@ Transform:
   - {fileID: 4283722131598073007}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4751961467257503998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9066158241516590064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8e07cfe7e4f4204abae41ff96dd1fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitName: Enemy A
+  maxHP: 100
+  currentHP: 70
+  autoAttackDamage: 15
+  attackInterval: 2
+  isEnemy: 1
+  floatingTextPrefab: {fileID: 3654013103139272853, guid: e2b93a7d963d06e4f875f3981df6fd6b, type: 3}

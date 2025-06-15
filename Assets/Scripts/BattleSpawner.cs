@@ -10,6 +10,7 @@ public class BattleSpawner : MonoBehaviour
     {
         SpawnPlayerTeam();
         SpawnEnemies();
+        // BattleManager.Instance.StartBattle(); // Удалено, бой стартует после нажатия кнопки
     }
 
     void SpawnPlayerTeam()

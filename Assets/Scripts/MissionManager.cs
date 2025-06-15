@@ -9,5 +9,6 @@ public class MissionManager : MonoBehaviour
     {
         missionIntroPanel.SetActive(false);
         // Все нужные действия — спавн, включение ботов — происходят внутри BattleSpawner
+        BattleManager.Instance.StartBattle();
     }
 }
