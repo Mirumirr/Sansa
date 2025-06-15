@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
-[CreateAssetMenu(fileName = "NewMissionConfig", menuName = "Prototype01/Mission Config")]
+[CreateAssetMenu(menuName = "Battle/MissionConfig")]
 public class MissionConfig : ScriptableObject
 {
     public string missionName;
     [TextArea] public string description;
-    public Sprite background;
-
-    public EnemyData[] enemies; // Пока просто массив врагов (будем расширять позже)
+    public List<UnitConfig> playerTeam;
+    public List<UnitConfig> enemyTeam;
+    // Можно добавить награды, условия победы и т.д.
 }

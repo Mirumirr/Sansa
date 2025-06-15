@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23c05a74868db1649ab2013a049dcbdd, type: 3}
+  m_Name: EnemyUnitConfig
+  m_EditorClassIdentifier: 
+  unitName: EnemyBot
+  prefab: {fileID: 9066158241516590064, guid: 60f44863b28689c418fb6296e23837a2, type: 3}
+  baseHP: 100
+  baseShield: 10
+  baseInitiative: 10
+  skills:
+  - {fileID: 11400000, guid: 9fa34bac18674a84c98cead71ece925f, type: 2}

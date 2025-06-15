@@ -4,11 +4,12 @@ using UnityEngine.UI;
 public class MissionManager : MonoBehaviour
 {
     public GameObject missionIntroPanel;
+    public BattleSpawner battleSpawner;
 
     public void StartMission()
     {
         missionIntroPanel.SetActive(false);
-        // Все нужные действия — спавн, включение ботов — происходят внутри BattleSpawner
+        battleSpawner.SpawnUnits();
         BattleManager.Instance.StartBattle();
     }
 }

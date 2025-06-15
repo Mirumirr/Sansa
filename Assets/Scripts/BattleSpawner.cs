@@ -1,39 +1,49 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BattleSpawner : MonoBehaviour
 {
-    public Transform[] playerSpawnPoints;
-    public Transform[] enemySpawnPoints;
+    public UnitFactory unitFactory;
+    public MissionConfig missionConfig;
+    public Transform playerParent;
+    public Transform enemyParent;
 
-    void Start()
+    private int playerSpawnIndex = 0;
+    private int enemySpawnIndex = 0;
+
+    public void SpawnUnits()
     {
-        SpawnPlayerTeam();
-        SpawnEnemies();
-        // BattleManager.Instance.StartBattle(); // Удалено, бой стартует после нажатия кнопки
-    }
-
-    void SpawnPlayerTeam()
-    {
-        List<RobotInstance> team = GameManager.Instance.playerTeam;
-
-        for (int i = 0; i < team.Count && i < playerSpawnPoints.Length; i++)
+        if (missionConfig == null)
         {
-            RobotInstance instance = team[i];
-            GameObject bot = Instantiate(instance.Prefab, playerSpawnPoints[i].position, Quaternion.identity);
-
-            // В будущем: установка ХП, модулей и т.д.
+            Debug.LogError("MissionConfig не задан!");
+            return;
+        }
+        if (unitFactory == null)
+        {
+            Debug.LogError("UnitFactory не задан!");
+            return;
+        }
+        foreach (var config in missionConfig.playerTeam)
+        {
+            var unit = unitFactory.CreateUnit(config, GetPlayerSpawnPoint(), Quaternion.identity, playerParent, TeamType.Player);
+            BattleManager.Instance.RegisterUnit(unit);
+        }
+        foreach (var config in missionConfig.enemyTeam)
+        {
+            var unit = unitFactory.CreateUnit(config, GetEnemySpawnPoint(), Quaternion.identity, enemyParent, TeamType.Enemy);
+            BattleManager.Instance.RegisterUnit(unit);
         }
     }
 
-    void SpawnEnemies()
+    private Vector3 GetPlayerSpawnPoint()
     {
-        var mission = GameManager.Instance.GetCurrentMission();
-        if (mission == null || mission.enemies == null) return;
-
-        for (int i = 0; i < mission.enemies.Length && i < enemySpawnPoints.Length; i++)
-        {
-            Instantiate(mission.enemies[i].enemyPrefab, enemySpawnPoints[i].position, Quaternion.identity);
-        }
+        Vector3 pos = new Vector3(-5 + playerSpawnIndex * 2, 0, 0); // Сдвиг по X
+        playerSpawnIndex++;
+        return pos;
+    }
+    private Vector3 GetEnemySpawnPoint()
+    {
+        Vector3 pos = new Vector3(5 + enemySpawnIndex * 2, 0, 0); // Сдвиг по X
+        enemySpawnIndex++;
+        return pos;
     }
 }

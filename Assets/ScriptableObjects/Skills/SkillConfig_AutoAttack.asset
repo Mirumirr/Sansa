@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a40453c2ae4b3c48b349b1ab015f7dc, type: 3}
+  m_Name: SkillConfig_AutoAttack
+  m_EditorClassIdentifier: 
+  skill: {fileID: 11400000, guid: b20d56176d7e0944c99654f1f7f92421, type: 2}
+  baseCooldown: 1

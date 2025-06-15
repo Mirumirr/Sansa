@@ -2,79 +2,63 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class BattleManager : MonoBehaviour
 {
-    public static BattleManager Instance;
+    public static BattleManager Instance { get; private set; }
 
-    public List<RobotUnit> playerUnits = new List<RobotUnit>();
-    public List<RobotUnit> enemyUnits = new List<RobotUnit>();
-    private bool battleInProgress = false;
+    public BattleState State { get; private set; } = BattleState.NotStarted;
+    private List<UnitBase> playerUnits = new List<UnitBase>();
+    private List<UnitBase> enemyUnits = new List<UnitBase>();
+
+    // События для UI
+    public event Action OnBattleStart;
+    public event Action OnBattleEnd;
+    public event Action<UnitBase> OnUnitSpawned;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
-        battleInProgress = false;
     }
 
-    public void RegisterPlayer(RobotUnit unit)
+    public void RegisterUnit(UnitBase unit)
     {
-        playerUnits.Add(unit);
-    }
+        if (unit == null) return;
+        if (unit.Team == TeamType.Player)
+            playerUnits.Add(unit);
+        else
+            enemyUnits.Add(unit);
 
-    public void RegisterEnemy(RobotUnit unit)
-    {
-        enemyUnits.Add(unit);
+        OnUnitSpawned?.Invoke(unit);
     }
 
     public void StartBattle()
     {
-        battleInProgress = true;
-        Debug.Log("Бой начался!");
+        State = BattleState.InProgress;
+        OnBattleStart?.Invoke();
+        // Запуск логики боя
     }
 
-    public RobotUnit GetEnemyTargetFor(RobotUnit attacker)
+    public void EndBattle(bool victory)
     {
-        var targets = attacker.isEnemy ? playerUnits : enemyUnits;
-
-        foreach (var target in targets)
-        {
-            if (target != null && target.IsAlive())
-                return target;
-        }
-
-        return null;
+        State = victory ? BattleState.Victory : BattleState.Defeat;
+        OnBattleEnd?.Invoke();
+        // Показать награды, итоги и т.д.
     }
 
-    public void CheckEndBattle()
+    // Пример метода для получения живых юнитов
+    public IReadOnlyList<UnitBase> GetAliveUnits(TeamType team)
     {
-        bool allEnemiesDead = enemyUnits.TrueForAll(u => u == null || !u.IsAlive());
-        bool allPlayersDead = playerUnits.TrueForAll(u => u == null || !u.IsAlive());
-
-        if (allEnemiesDead)
-        {
-            Debug.Log("Победа! Все враги побеждены.");
-            EndBattle(true);
-        }
-        else if (allPlayersDead)
-        {
-            Debug.Log("Поражение... Все союзники погибли.");
-            EndBattle(false);
-        }
+        return team == TeamType.Player
+            ? playerUnits.FindAll(u => u.IsAlive)
+            : enemyUnits.FindAll(u => u.IsAlive);
     }
 
-    private void EndBattle(bool isVictory)
-    {
-        battleInProgress = false;
-        if (isVictory)
-        {
-            Debug.Log("Показать экран победы");
-        }
-        else
-        {
-            Debug.Log("Показать экран поражения");
-        }
-    }
-
-    public bool IsBattleActive() => battleInProgress;
+    public bool IsBattleActive() => State == BattleState.InProgress;
 }

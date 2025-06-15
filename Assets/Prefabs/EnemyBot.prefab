@@ -126,13 +126,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 9066158241516590064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8e07cfe7e4f4204abae41ff96dd1fcb, type: 3}
+  m_Script: {fileID: 11500000, guid: 861ab667b84b4e442b3a38a248d7fa4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy A
-  maxHP: 100
-  currentHP: 70
-  autoAttackDamage: 15
-  attackInterval: 2
-  isEnemy: 1
-  floatingTextPrefab: {fileID: 3654013103139272853, guid: e2b93a7d963d06e4f875f3981df6fd6b, type: 3}
